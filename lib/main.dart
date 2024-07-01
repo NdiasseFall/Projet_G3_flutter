@@ -12,34 +12,50 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Task Manager',
+      title: 'Glow up',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const homePage(),
+      home: const HomePage(),
     );
   }
 }
 
-class homePage extends StatefulWidget {
-  const homePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<homePage> createState() => _homePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _homePageState extends State<homePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(0, 0, 255, 1),
+      backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
       appBar: AppBar(
-        title: Text('Ma liste de tâches'),
-        backgroundColor: Color.fromRGBO(0, 0, 255, 1),
+        title: const Text('Ma liste de tâches'),
+        backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
+      body: Center(
+          child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Text('Bienvenue'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const TaskPage()));
+              },
+              child: const Text('Commencer'),
+            ),
+          ],
+        ),
+      )),
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 0, 17, 248),
+        color: const Color.fromARGB(255, 0, 17, 248),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -49,18 +65,16 @@ class _homePageState extends State<homePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => homePage(),
+                    builder: (context) => const HomePage(),
                   ),
                 );
               },
-              icon: Icon(Icons.home),
+              icon: const Icon(Icons.home),
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {
-                // Handle button press
-              },
-              icon: Icon(Icons.search),
+              onPressed: () {},
+              icon: const Icon(Icons.search),
             ),
             IconButton(
               color: Colors.white,
@@ -68,11 +82,11 @@ class _homePageState extends State<homePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TaskPage(),
+                    builder: (context) => const TaskPage(),
                   ),
                 );
               },
-              icon: Icon(Icons.edit_note),
+              icon: const Icon(Icons.edit_note),
             ),
             IconButton(
               color: Colors.white,
@@ -84,12 +98,12 @@ class _homePageState extends State<homePage> {
                   ),
                 );
               },
-              icon: Icon(Icons.folder),
+              icon: const Icon(Icons.folder),
             ),
             IconButton(
               color: Colors.white,
               onPressed: () {},
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
             ),
           ],
         ),
