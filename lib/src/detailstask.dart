@@ -16,9 +16,19 @@ class _TaskListScreenState extends State<TaskListScreen> {
       backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
       appBar: AppBar(
         title: const Text('Ma liste de tâches'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications_active),
+            ),
+          ),
+        ],
         backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
+
 
       // la bar de navigation
       bottomNavigationBar: BottomAppBar(
@@ -63,7 +73,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TaskListScreen(),
+                    builder: (context) => const TaskListScreen(),
                   ),
                 );
               },

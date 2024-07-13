@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -34,30 +35,43 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
       appBar: AppBar(
-        title: const Text('Ma liste de tâches'),
+        actions: const [Padding(
+          padding: EdgeInsets.only(right: 20),
+          child: Icon(Icons.notifications_active),
+        )],
         backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
-      body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(15),
+      body: SizedBox(
+        width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Bienvenue'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const TaskPage()));
-              },
-              child: const Text('Commencer'),
+            const Text(
+              'Bienvenue sur Glow up',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const TaskPage()));
+                },
+                child: const Text(
+                  'Commencer',
+                  style: TextStyle(color: Color.fromARGB(255, 0, 4, 255)),
+                ),
+              ),
             ),
           ],
         ),
-      )),
+      ),
       bottomNavigationBar: BottomAppBar(
         color: const Color.fromARGB(255, 0, 17, 248),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
               color: Colors.white,
@@ -94,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TaskListScreen(),
+                    builder: (context) => const TaskListScreen(),
                   ),
                 );
               },
