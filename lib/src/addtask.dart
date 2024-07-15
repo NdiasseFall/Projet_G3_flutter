@@ -2,6 +2,26 @@ import 'package:flutter/material.dart';
 import 'detailstask.dart';
 import '../main.dart';
 
+class Task {
+  final String title;
+  final String description;
+  final int priority;
+
+  Task(
+      {required this.title, required this.description, required this.priority});
+}
+
+List<Task> tasks = [
+  Task(
+      title: 'Acheter des courses',
+      description: 'Pain, lait, œufs',
+      priority: 1),
+  Task(
+      title: 'Réunion de travail',
+      description: 'Présentation à 15h',
+      priority: 0),
+];
+
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
 
@@ -12,10 +32,30 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   int _groupValue = 0;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
   void onChanged(int? value) {
     setState(() {
       _groupValue = value!;
     });
+  }
+
+  addTask() {
+    String title0 = _titleController.text;
+    String description0 = _descriptionController.text;
+    int priority0 = _groupValue;
+    setState(() {
+    // Correction: Create a Task object instead of a list
+      tasks.add(Task(title: title0, description: description0, priority: priority0));
+      _titleController.clear();
+      _descriptionController.clear();
+      _groupValue = 0;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Tâche ajoutée avec succès!')),
+    );
   }
 
   @override
@@ -44,57 +84,60 @@ class _TaskPageState extends State<TaskPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _titleController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                     labelText: 'Titre',
                     labelStyle: TextStyle(color: Colors.white),
-                    
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
                 child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Contenu',
+                  controller: _descriptionController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Description',
                     labelStyle: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
-              const Text('Priorité', style: TextStyle(color: Colors.white,fontSize: 20)),
+              const Text('Priorité',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
               RadioListTile(
                   title: const Text(
-                    'Bas',
+                    'Bass',
                     style: TextStyle(color: Colors.white),
                   ),
                   activeColor: Colors.white,
-   
-                 
                   value: 0,
                   groupValue: _groupValue,
                   onChanged: onChanged),
-                   
               RadioListTile(
-                  title: const Text('Moyen',
+                  title: const Text('Moyenne',
                       style: TextStyle(color: Colors.white)),
                   value: 1,
-                  activeColor: const Color.fromARGB(255, 233, 114, 16),  
+                  activeColor: const Color.fromARGB(255, 233, 114, 16),
                   groupValue: _groupValue,
                   onChanged: onChanged),
               RadioListTile(
-                  title: const Text('Important',
+                  title: const Text('Elevée',
                       style: TextStyle(color: Colors.white)),
                   value: 2,
-                  activeColor: const Color.fromARGB(255, 197, 0, 26),  
+                  activeColor: const Color.fromARGB(255, 197, 0, 26),
                   groupValue: _groupValue,
                   onChanged: onChanged),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  addTask();
+                },
                 child: const Text('Ajouter la tâche',
                     style: TextStyle(color: Color.fromARGB(255, 17, 0, 255))),
-              ),
+              )
             ],
           ),
         ),

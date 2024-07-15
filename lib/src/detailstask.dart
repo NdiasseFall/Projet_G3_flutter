@@ -29,7 +29,30 @@ class _TaskListScreenState extends State<TaskListScreen> {
         foregroundColor: Colors.white,
       ),
 
-
+      body: ListView.builder(
+        itemCount: tasks.length,
+        itemBuilder: (ctx, index) {
+          final task = tasks[index];
+          return ListTile(
+            title: Text(
+              task.title,
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              task.description,
+              style: TextStyle(color: Colors.white),
+            ),
+            trailing: Text(
+              task.priority.toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+            onTap: () {
+              // Naviguer vers l'écran de détails de la tâche
+              Navigator.of(context).pushNamed('/task-detail', arguments: task);
+            },
+          );
+        },
+      ),
       // la bar de navigation
       bottomNavigationBar: BottomAppBar(
         color: const Color.fromARGB(255, 0, 17, 248),
