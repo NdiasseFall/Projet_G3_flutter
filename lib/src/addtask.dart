@@ -6,20 +6,27 @@ class Task {
   final String title;
   final String description;
   final int priority;
+  final bool val1;
 
-  Task(
-      {required this.title, required this.description, required this.priority});
+  Task({
+    required this.title,
+    required this.description,
+    required this.priority,
+    required this.val1,
+  });
 }
 
 List<Task> tasks = [
   Task(
       title: 'Acheter des courses',
       description: 'Pain, lait, œufs',
-      priority: 1),
+      priority: 1,
+      val1: false),
   Task(
       title: 'Réunion de travail',
       description: 'Présentation à 15h',
-      priority: 0),
+      priority: 0,
+      val1: false),
 ];
 
 class TaskPage extends StatefulWidget {
@@ -35,7 +42,7 @@ class _TaskPageState extends State<TaskPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
-  void onChanged(int? value) {
+  void onChange(int? value) {
     setState(() {
       _groupValue = value!;
     });
@@ -45,9 +52,10 @@ class _TaskPageState extends State<TaskPage> {
     String title0 = _titleController.text;
     String description0 = _descriptionController.text;
     int priority0 = _groupValue;
+    bool value = false;
     setState(() {
-    // Correction: Create a Task object instead of a list
-      tasks.add(Task(title: title0, description: description0, priority: priority0));
+      tasks.add(
+          Task(title: title0, description: description0, priority: priority0, val1: value));
       _titleController.clear();
       _descriptionController.clear();
       _groupValue = 0;
@@ -110,27 +118,27 @@ class _TaskPageState extends State<TaskPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20)),
               RadioListTile(
                   title: const Text(
-                    'Bass',
+                    'Basse',
                     style: TextStyle(color: Colors.white),
                   ),
-                  activeColor: Colors.white,
+                  activeColor: const Color.fromARGB(255, 0, 217, 255),
                   value: 0,
                   groupValue: _groupValue,
-                  onChanged: onChanged),
+                  onChanged: onChange),
               RadioListTile(
                   title: const Text('Moyenne',
                       style: TextStyle(color: Colors.white)),
                   value: 1,
                   activeColor: const Color.fromARGB(255, 233, 114, 16),
                   groupValue: _groupValue,
-                  onChanged: onChanged),
+                  onChanged: onChange),
               RadioListTile(
                   title: const Text('Elevée',
                       style: TextStyle(color: Colors.white)),
                   value: 2,
                   activeColor: const Color.fromARGB(255, 197, 0, 26),
                   groupValue: _groupValue,
-                  onChanged: onChanged),
+                  onChanged: onChange),
               ElevatedButton(
                 onPressed: () {
                   addTask();

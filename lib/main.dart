@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "src/addtask.dart";
 import 'src/detailstask.dart';
-// import 'src/mestest.dart';
+import 'src/inscription.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,10 +36,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
       appBar: AppBar(
-        actions: const [Padding(
-          padding: EdgeInsets.only(right: 20),
-          child: Icon(Icons.notifications_active),
-        )],
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(Icons.notifications_active),
+          )
+        ],
         backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
@@ -57,8 +59,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const TaskPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TaskPage()));
                 },
                 child: const Text(
                   'Commencer',
@@ -88,7 +92,14 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyPageIns(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.search),
             ),
             IconButton(
@@ -109,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const  TaskListScreen(),
+                    builder: (context) => const TaskListScreen(),
                   ),
                 );
               },
@@ -117,9 +128,7 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {
-              
-              },
+              onPressed: () {},
               icon: const Icon(Icons.person),
             ),
           ],

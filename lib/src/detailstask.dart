@@ -10,6 +10,18 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
+  bool val1 = false;
+  void getChange1(bool s) {
+    setState(() {
+      val1 = s;
+    });
+  }
+
+  final List<Color> itemColors = [
+    const Color.fromARGB(255, 0, 217, 255),
+    const Color.fromARGB(255, 233, 114, 16),
+    const Color.fromARGB(255, 197, 0, 26)
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,29 +40,52 @@ class _TaskListScreenState extends State<TaskListScreen> {
         backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
-
       body: ListView.builder(
         itemCount: tasks.length,
         itemBuilder: (ctx, index) {
           final task = tasks[index];
-          return ListTile(
-            title: Text(
-              task.title,
-              style: TextStyle(color: Colors.white),
-            ),
-            subtitle: Text(
-              task.description,
-              style: TextStyle(color: Colors.white),
-            ),
-            trailing: Text(
-              task.priority.toString(),
-              style: TextStyle(color: Colors.white),
-            ),
-            onTap: () {
-              // Naviguer vers l'écran de détails de la tâche
-              Navigator.of(context).pushNamed('/task-detail', arguments: task);
-            },
-          );
+          return Padding(
+              padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+              child: Column(
+                children: [
+                  Container(),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10), // Rayon de 10 pixels
+                      border: Border.all(
+                        color: itemColors[task.priority], // Couleur de la bordure
+                        width: 2, // Largeur de la bordure
+                      ),
+                      color: const Color.fromARGB(
+                          255, 255, 255, 255), // Couleur de fond
+                    ),
+                    
+                    child: ListTile(
+                        title: Text(
+                          task.title,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 17, 255)),
+                        ),
+                        subtitle: Text(
+                          task.description,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 4, 0, 255)),
+                        ),
+                   
+                        trailing: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              tasks.removeAt(index);
+                            });
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: itemColors[task.priority],
+                          ),
+                        )),
+                  ),
+                ],
+              ));
         },
       ),
       // la bar de navigation
