@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "src/addtask.dart";
 import 'src/detailstask.dart';
 import 'src/inscription.dart';
+import 'src/profil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -128,7 +129,14 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilPage(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.person),
             ),
           ],

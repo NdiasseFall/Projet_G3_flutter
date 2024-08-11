@@ -54,8 +54,11 @@ class _TaskPageState extends State<TaskPage> {
     int priority0 = _groupValue;
     bool value = false;
     setState(() {
-      tasks.add(
-          Task(title: title0, description: description0, priority: priority0, val1: value));
+      tasks.add(Task(
+          title: title0,
+          description: description0,
+          priority: priority0,
+          val1: value));
       _titleController.clear();
       _descriptionController.clear();
       _groupValue = 0;

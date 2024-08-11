@@ -4,10 +4,14 @@
     pkgs.nodePackages.firebase-tools
     pkgs.jdk17
     pkgs.unzip
+    pkgs.sqlite
   ];
+  
   idx.extensions = [
     
-  ];
+  
+ "Dart-Code.dart-code"
+ "Dart-Code.flutter"];
   idx.previews = {
     previews = {
       web = {

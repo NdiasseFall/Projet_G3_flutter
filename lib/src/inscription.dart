@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'connexion.dart';
+
 class MyPageIns extends StatefulWidget {
   const MyPageIns({super.key});
 
@@ -33,15 +35,16 @@ class _MyPageInsState extends State<MyPageIns> {
                         fontWeight: FontWeight.bold)),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 15, left: 20, right: 20),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 30,
+                  height: 40,
                   child: TextField(
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: "Nom_Complet ou Pseudo",
-                        labelStyle: const TextStyle(color: Colors.white,fontSize: 12),
+                        labelStyle:
+                            const TextStyle(color: Colors.white, fontSize: 12),
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: Color.fromARGB(255, 226, 218, 218)),
@@ -52,16 +55,19 @@ class _MyPageInsState extends State<MyPageIns> {
                               color: Color.fromARGB(255, 226, 218, 218)),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                      )),
+                      
+                      )
+                      
+                      ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 15, left: 20, right: 20),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 30,
+                  height: 40,
                   child: TextField(
-                    style: const TextStyle(color: Colors.white,fontSize: 12),
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                     decoration: InputDecoration(
                       labelStyle: const TextStyle(color: Colors.white),
                       labelText: "Adresse mail",
@@ -80,12 +86,12 @@ class _MyPageInsState extends State<MyPageIns> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 15, left: 20, right: 20),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 30,
+                  height: 40,
                   child: TextField(
-                    style: const TextStyle(color: Colors.white,fontSize: 12),
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                     decoration: InputDecoration(
                       labelText: "Mot de passe",
                       labelStyle: const TextStyle(color: Colors.white),
@@ -104,12 +110,12 @@ class _MyPageInsState extends State<MyPageIns> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 15, left: 20, right: 20),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 30,
+                  height: 40,
                   child: TextField(
-                    style: const TextStyle(color: Colors.white,fontSize: 12),
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                     decoration: InputDecoration(
                       labelText: "Confirmer le mot de passe",
                       labelStyle: const TextStyle(color: Colors.white),
@@ -139,10 +145,10 @@ class _MyPageInsState extends State<MyPageIns> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                     ),
-                    fixedSize: WidgetStatePropertyAll(Size(300, 30))),
+                    fixedSize: WidgetStatePropertyAll(Size(350, 40))),
                 child: Text("S'inscrire"),
               ),
-             const Text("ou avec", style: TextStyle(color: Colors.white)),
+              const Text("ou avec", style: TextStyle(color: Colors.white)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,13 +180,27 @@ class _MyPageInsState extends State<MyPageIns> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text("Vous avez déjà un compte?",
                       style: TextStyle(color: Colors.white)),
                   TextButton(
-                    onPressed: () {},
-                    child: const Text("Se connecter",
-                        style: TextStyle(color: Colors.white)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyPageConex(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Se connecter",
+                      style: TextStyle(
+                          color: Colors.white,
+                          ),
+                          
+                    ),
                   )
                 ],
               )
