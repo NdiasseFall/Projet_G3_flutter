@@ -123,7 +123,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   ),
                 );
               },
-              icon: const Icon(Icons.edit_note),
+              icon: const Icon(Icons.add_circle_rounded,size: 35),
             ),
             IconButton(
               color: Colors.white,
