@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
 import 'detailstask.dart';
 import '../main.dart';
+import 'inscription.dart';
 
 class Task {
-  final String title;
-  final String description;
-  final int priority;
-  final bool val1;
-
   Task({
     required this.title,
     required this.description,
+    this.dueDate,
     required this.priority,
-    required this.val1,
+    this.isCompleted = false,
   });
+  String title;
+  String description;
+  DateTime? dueDate;
+  int priority;
+  bool isCompleted;
+
+  void toggleCompletion() {
+    isCompleted = !isCompleted;
+  }
 }
 
-List<Task> tasks = [
-  Task(
-      title: 'Acheter des courses',
-      description: 'Pain, lait, œufs',
-      priority: 1,
-      val1: false),
-  Task(
-      title: 'Réunion de travail',
-      description: 'Présentation à 15h',
-      priority: 0,
-      val1: false),
-];
+List<Task> tasks = [];
 
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -39,8 +34,10 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   int _groupValue = 0;
+  final List<Task> _tasks = [];
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  DateTime? _selectedDueDate;
 
   void onChange(int? value) {
     setState(() {
@@ -48,25 +45,59 @@ class _TaskPageState extends State<TaskPage> {
     });
   }
 
+  List<Task> _filterTasks(String query) {
+    if (query.isEmpty) {
+      return _tasks;
+    }
+
+    return _tasks
+        .where((task) => task.title.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
   addTask() {
-    String title0 = _titleController.text;
-    String description0 = _descriptionController.text;
-    int priority0 = _groupValue;
-    bool value = false;
-    setState(() {
-      tasks.add(Task(
+    if (_titleController.text.isNotEmpty &&
+        _descriptionController.text.isNotEmpty) {
+      String title0 = _titleController.text;
+      String description0 = _descriptionController.text;
+      int priority0 = _groupValue;
+      setState(() {
+        tasks.add(Task(
           title: title0,
           description: description0,
+          dueDate: _selectedDueDate,
           priority: priority0,
-          val1: value));
-      _titleController.clear();
-      _descriptionController.clear();
-      _groupValue = 0;
-    });
+        ));
+        _tasks.sort((a, b) {
+          if (a.dueDate == null) return 1;
+          if (b.dueDate == null) return -1;
+          return a.dueDate!.compareTo(b.dueDate!);
+        });
+        _titleController.clear();
+        _descriptionController.clear();
+        _selectedDueDate = null;
+        _groupValue = 0;
+      });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Tâche ajoutée avec succès!')),
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Tâche ajoutée avec succès!')),
+      );
+    }
+  }
+
+  Future<void> _selectDueDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
     );
+
+    if (pickedDate != null) {
+      setState(() {
+        _selectedDueDate = pickedDate;
+      });
+    }
   }
 
   @override
@@ -117,8 +148,25 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                 ),
               ),
-              const Text('Priorité',
-                  style: TextStyle(color: Colors.white, fontSize: 20)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () => _selectDueDate(context),
+                    icon: const Icon(
+                      Icons.calendar_today,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              const Row(
+                children: [
+                  Text('Priorité',
+                      style: TextStyle(color: Colors.white, fontSize: 20)),
+                ],
+              ),
               RadioListTile(
                   title: const Text(
                     'Basse',
@@ -142,12 +190,15 @@ class _TaskPageState extends State<TaskPage> {
                   activeColor: const Color.fromARGB(255, 197, 0, 26),
                   groupValue: _groupValue,
                   onChanged: onChange),
-              ElevatedButton(
-                onPressed: () {
-                  addTask();
-                },
-                child: const Text('Ajouter la tâche',
-                    style: TextStyle(color: Color.fromARGB(255, 17, 0, 255))),
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    addTask();
+                  },
+                  child: const Text('Ajouter Tache',
+                      style: TextStyle(color: Color.fromARGB(255, 25, 0, 255))),
+                ),
               )
             ],
           ),
@@ -173,7 +224,12 @@ class _TaskPageState extends State<TaskPage> {
             IconButton(
               color: Colors.white,
               onPressed: () {
-                // Handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyPageIns(),
+                  ),
+                );
               },
               icon: const Icon(Icons.search),
             ),
@@ -187,7 +243,10 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                 );
               },
-              icon: const Icon(Icons.edit_note),
+              icon: const Icon(
+                Icons.add_circle_rounded,
+                size: 35,
+              ),
             ),
             IconButton(
               color: Colors.white,

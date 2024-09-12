@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'addtask.dart';
 import '../main.dart';
+import 'inscription.dart';
+import 'package:intl/intl.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({super.key});
@@ -10,18 +12,12 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
-  bool val1 = false;
-  void getChange1(bool s) {
-    setState(() {
-      val1 = s;
-    });
-  }
-
   final List<Color> itemColors = [
     const Color.fromARGB(255, 0, 217, 255),
     const Color.fromARGB(255, 233, 114, 16),
-    const Color.fromARGB(255, 197, 0, 26)
+    const Color.fromARGB(255, 247, 0, 33)
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,41 +44,74 @@ class _TaskListScreenState extends State<TaskListScreen> {
               padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
               child: Column(
                 children: [
-                  Container(),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10), // Rayon de 10 pixels
-                      border: Border.all(
-                        color: itemColors[task.priority], // Couleur de la bordure
-                        width: 2, // Largeur de la bordure
-                      ),
-                      color: const Color.fromARGB(
-                          255, 255, 255, 255), // Couleur de fond
-                    ),
-                    
-                    child: ListTile(
-                        title: Text(
-                          task.title,
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 17, 255)),
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(10), // Rayon de 10 pixels
+                          border: Border.all(
+                            color: itemColors[
+                                task.priority], // Couleur de la bordure
+                            width: 2, // Largeur de la bordure
+                          ),
+                          color: const Color.fromARGB(
+                              255, 255, 255, 255), // Couleur de fond
                         ),
-                        subtitle: Text(
-                          task.description,
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 4, 0, 255)),
-                        ),
-                   
-                        trailing: IconButton(
-                          onPressed: () {
+                        child: ListTile(
+                          leading: Checkbox(
+                            value: task.isCompleted,
+                            onChanged: (value) {
+                              setState(() {
+                                task.toggleCompletion();
+                              });
+                            },
+                            activeColor: itemColors[task.priority],
+                          ),
+                          title: Text(
+                            task.title,
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 17, 255)),
+                          ),
+                          subtitle: Text(
+                            task.description,
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 17, 255)),
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.edit_note,
+                              color: itemColors[task.priority],
+                            ),
+                          ),
+                          onLongPress: () {
                             setState(() {
                               tasks.removeAt(index);
                             });
                           },
-                          icon: Icon(
-                            Icons.delete,
-                            color: itemColors[task.priority],
-                          ),
-                        )),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              task.dueDate != null
+                                  ? DateFormat('yyyy-MM-dd')
+                                      .format(task.dueDate!)
+                                  : "",
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors
+                                      .white // Adjust font size for better display
+                                  ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ));
@@ -92,7 +121,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
       bottomNavigationBar: BottomAppBar(
         color: const Color.fromARGB(255, 0, 17, 248),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
               color: Colors.white,
@@ -109,7 +138,11 @@ class _TaskListScreenState extends State<TaskListScreen> {
             IconButton(
               color: Colors.white,
               onPressed: () {
-                // Handle button press
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyPageIns(),
+                    ));
               },
               icon: const Icon(Icons.search),
             ),

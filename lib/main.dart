@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              icon: const Icon(Icons.edit_note),
+              icon: const Icon(Icons.add_circle_rounded,size: 35,),
             ),
             IconButton(
               color: Colors.white,
