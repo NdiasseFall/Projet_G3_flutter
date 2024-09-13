@@ -55,10 +55,7 @@ class _MyPageInsState extends State<MyPageIns> {
                               color: Color.fromARGB(255, 226, 218, 218)),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                      
-                      )
-                      
-                      ),
+                      )),
                 ),
               ),
               Padding(
@@ -179,12 +176,18 @@ class _MyPageInsState extends State<MyPageIns> {
                   ),
                 ],
               ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Vous avez déjà un compte?",
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("Vous avez déjà un compte?",
-                      style: TextStyle(color: Colors.white)),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -197,9 +200,8 @@ class _MyPageInsState extends State<MyPageIns> {
                     child: const Text(
                       "Se connecter",
                       style: TextStyle(
-                          color: Colors.white,
-                          ),
-                          
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],

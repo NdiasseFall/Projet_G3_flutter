@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'inscription.dart';
 import '../main.dart';
 import 'addtask.dart';
 import 'detailstask.dart';
+
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
 
@@ -21,12 +21,12 @@ class _ProfilPageState extends State<ProfilPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
-        backgroundColor: Color.fromARGB(255, 0, 35, 236),
+        backgroundColor: const Color.fromARGB(255, 0, 35, 236),
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Color.fromARGB(255, 0, 35, 236),
-
-      body: Form(
+      backgroundColor: const Color.fromARGB(255, 0, 35, 236),
+      body: SingleChildScrollView(
+          child: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -36,7 +36,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 radius: 50,
                 backgroundImage: AssetImage('assets/images/avatar.png'),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   // Choisir une photo
@@ -83,8 +83,8 @@ class _ProfilPageState extends State<ProfilPage> {
             ],
           ),
         ),
-      ),
-          bottomNavigationBar: BottomAppBar(
+      )),
+      bottomNavigationBar: BottomAppBar(
         color: const Color.fromARGB(255, 0, 17, 248),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +123,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   ),
                 );
               },
-              icon: const Icon(Icons.add_circle_rounded,size: 35),
+              icon: const Icon(Icons.add_circle_rounded, size: 35),
             ),
             IconButton(
               color: Colors.white,

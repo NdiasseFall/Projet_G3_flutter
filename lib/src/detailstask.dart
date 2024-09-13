@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glowup/src/profil.dart';
 import 'addtask.dart';
 import '../main.dart';
 import 'inscription.dart';
@@ -36,86 +37,87 @@ class _TaskListScreenState extends State<TaskListScreen> {
         backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
-      body: ListView.builder(
-        itemCount: tasks.length,
-        itemBuilder: (ctx, index) {
-          final task = tasks[index];
-          return Padding(
-              padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(10), // Rayon de 10 pixels
-                          border: Border.all(
-                            color: itemColors[
-                                task.priority], // Couleur de la bordure
-                            width: 2, // Largeur de la bordure
+      body: Scrollbar(
+        child: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (ctx, index) {
+            final task = tasks[index];
+            return Padding(
+                padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(10), // Rayon de 10 pixels
+                            border: Border.all(
+                              color: itemColors[
+                                  task.priority], // Couleur de la bordure
+                              width: 2, // Largeur de la bordure
+                            ),
+                            color: const Color.fromARGB(
+                                255, 255, 255, 255), // Couleur de fond
                           ),
-                          color: const Color.fromARGB(
-                              255, 255, 255, 255), // Couleur de fond
-                        ),
-                        child: ListTile(
-                          leading: Checkbox(
-                            value: task.isCompleted,
-                            onChanged: (value) {
-                              setState(() {
-                                task.toggleCompletion();
-                              });
-                            },
-                            activeColor: itemColors[task.priority],
-                          ),
-                          title: Text(
-                            task.title,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 17, 255)),
-                          ),
-                          subtitle: Text(
-                            task.description,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 17, 255)),
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.edit_note,
-                              color: itemColors[task.priority],
+                          child: ListTile(
+                            leading: Checkbox(
+                              value: task.isCompleted,
+                              onChanged: (value) {
+                                setState(() {
+                                  task.toggleCompletion();
+                                });
+                              },
+                              activeColor: itemColors[task.priority],
+                            ),
+                            title: Text(task.title,
+                                style: task.isCompleted
+                                    ? const TextStyle(
+                                        decoration: TextDecoration.lineThrough)
+                                    : null),
+                            subtitle: Text(task.description,
+                                style: task.isCompleted
+                                    ? const TextStyle(
+                                        decoration: TextDecoration.lineThrough)
+                                    : null),
+                            trailing: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  tasks.removeAt(index);
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: itemColors[task.priority],
+                              ),
                             ),
                           ),
-                          onLongPress: () {
-                            setState(() {
-                              tasks.removeAt(index);
-                            });
-                          },
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              task.dueDate != null
-                                  ? DateFormat('yyyy-MM-dd')
-                                      .format(task.dueDate!)
-                                  : "",
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors
-                                      .white // Adjust font size for better display
-                                  ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ));
-        },
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                task.dueDate != null
+                                    ? DateFormat('yyyy-MM-dd')
+                                        .format(task.dueDate!)
+                                    : 'pas de date',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors
+                                        .white // Adjust font size for better display
+                                    ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ));
+          },
+        ),
       ),
       // la bar de navigation
       bottomNavigationBar: BottomAppBar(
@@ -156,7 +158,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                   ),
                 );
               },
-              icon: const Icon(Icons.edit_note),
+              icon: const Icon(
+                Icons.add_circle_rounded,
+                size: 35,
+              ),
             ),
             IconButton(
               color: Colors.white,
@@ -172,7 +177,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilPage(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.person),
             ),
           ],

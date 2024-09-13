@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glowup/src/profil.dart';
 import 'detailstask.dart';
 import '../main.dart';
 import 'inscription.dart';
@@ -118,89 +119,92 @@ class _TaskPageState extends State<TaskPage> {
         backgroundColor: const Color.fromRGBO(0, 0, 255, 1),
         foregroundColor: Colors.white,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: TextField(
-                  controller: _titleController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                    labelText: 'Titre',
-                    labelStyle: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: TextField(
-                  controller: _descriptionController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                    labelStyle: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () => _selectDueDate(context),
-                    icon: const Icon(
-                      Icons.calendar_today,
-                      color: Colors.white,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: TextField(
+                    controller: _titleController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      labelText: 'Titre',
+                      labelStyle: TextStyle(color: Colors.white),
                     ),
                   ),
-                ],
-              ),
-              const Row(
-                children: [
-                  Text('Priorité',
-                      style: TextStyle(color: Colors.white, fontSize: 20)),
-                ],
-              ),
-              RadioListTile(
-                  title: const Text(
-                    'Basse',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  activeColor: const Color.fromARGB(255, 0, 217, 255),
-                  value: 0,
-                  groupValue: _groupValue,
-                  onChanged: onChange),
-              RadioListTile(
-                  title: const Text('Moyenne',
-                      style: TextStyle(color: Colors.white)),
-                  value: 1,
-                  activeColor: const Color.fromARGB(255, 233, 114, 16),
-                  groupValue: _groupValue,
-                  onChanged: onChange),
-              RadioListTile(
-                  title: const Text('Elevée',
-                      style: TextStyle(color: Colors.white)),
-                  value: 2,
-                  activeColor: const Color.fromARGB(255, 197, 0, 26),
-                  groupValue: _groupValue,
-                  onChanged: onChange),
-              Padding(
-                padding: const EdgeInsets.only(top: 40.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    addTask();
-                  },
-                  child: const Text('Ajouter Tache',
-                      style: TextStyle(color: Color.fromARGB(255, 25, 0, 255))),
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: TextField(
+                    controller: _descriptionController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                      labelStyle: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () => _selectDueDate(context),
+                      icon: const Icon(
+                        Icons.calendar_today,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Text('Priorité',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ],
+                ),
+                RadioListTile(
+                    title: const Text(
+                      'Basse',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    activeColor: const Color.fromARGB(255, 0, 217, 255),
+                    value: 0,
+                    groupValue: _groupValue,
+                    onChanged: onChange),
+                RadioListTile(
+                    title: const Text('Moyenne',
+                        style: TextStyle(color: Colors.white)),
+                    value: 1,
+                    activeColor: const Color.fromARGB(255, 233, 114, 16),
+                    groupValue: _groupValue,
+                    onChanged: onChange),
+                RadioListTile(
+                    title: const Text('Elevée',
+                        style: TextStyle(color: Colors.white)),
+                    value: 2,
+                    activeColor: const Color.fromARGB(255, 197, 0, 26),
+                    groupValue: _groupValue,
+                    onChanged: onChange),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      addTask();
+                    },
+                    child: const Text('Ajouter Tache',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 25, 0, 255))),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -262,7 +266,14 @@ class _TaskPageState extends State<TaskPage> {
             ),
             IconButton(
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilPage(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.person),
             ),
           ],
